@@ -1,0 +1,21 @@
+{
+  "name": "findorcreate_mongoose5.x",
+  "version": "1.0.0",
+  "description": "Useful plugin for activate the atomic FindOrCreate function in mongoose 5.x",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha index.test"
+  },
+  "keywords": [
+    "findorcreate",
+    "atomic",
+    "mongoose"
+  ],
+  "author": "Diego Garcia",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "mocha": "^6.1.4",
+    "mongoose": "^5.6.4"
+  }
+}
