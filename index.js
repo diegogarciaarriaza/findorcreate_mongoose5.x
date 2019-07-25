@@ -15,28 +15,32 @@
 module.exports = function(query, document) {
 
     return new Promise((resolve, reject) => {
-        if (arguments.length < 2)
+        if (arguments.length < 2) {
             reject("findOrCreate requires 2 arguments: 'query' and 'document'");
+        }
+        else {
+            document = {"$setOnInsert": document};
 
-        document = {"$setOnInsert": document};
+            // Define the default settings for activate findOrCrate using findAndUpdate method of mongoose
+            let options = {
+                new: true,
+                useFindAndModify: false,
+                setDefaultsOnInsert: true,
+                rawResult: true,
+                upsert: true
+            };
 
-        // Define the default settings for activate findOrCrate using findAndUpdate method of mongoose
-        let options = {
-            new: true,
-            useFindAndModify: false,
-            setDefaultsOnInsert: true,
-            rawResult: true,
-            upsert: true
-        };
-
-        this.findOneAndUpdate(query, document, options, (err, record) => {
-            if (err) {
-                reject (err);
-            }
-            resolve({
-                document: record.value,
-                created: !record.lastErrorObject.updatedExisting
+            this.findOneAndUpdate(query, document, options, (err, record) => {
+                if (err || !record || typeof record == 'undefined') {
+                    reject(err);
+                }
+                else {
+                    resolve({
+                        document: record.value,
+                        created: !record.lastErrorObject.updatedExisting
+                    });
+                }
             });
-        });
+        }
     })
 };

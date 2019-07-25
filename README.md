@@ -64,7 +64,3 @@ npm test
 ### License
 
 ISC
-
-#### Keywords
-
-findorcreate atomic mongoose
